@@ -1,6 +1,6 @@
 # On a version tag: a wheel for each system, tested where it is built, published to PyPI by trusted publishing, no token
 # stored anywhere, and attached to a GitHub release. One wheel a system serves every Python from 3.12 through the stable
-# ABI; 3.11 and free-threaded 3.14 get their own.
+# ABI; free-threaded 3.14 gets its own.
 name: Release
 
 on:
@@ -24,7 +24,7 @@ jobs:
         run: test "v$(grep -m1 '^version' pyproject.toml | cut -d'"' -f2)" = "${GITHUB_REF_NAME}"
       - uses: pypa/cibuildwheel@v3.2
         env:
-          CIBW_BUILD: "cp311-* cp312-* cp314t-*"
+          CIBW_BUILD: "cp312-* cp314t-*"
           CIBW_SKIP: "*-musllinux_* *-win32 *-manylinux_i686"
           CIBW_ENABLE: cpython-freethreading
           CIBW_TEST_REQUIRES: pytest

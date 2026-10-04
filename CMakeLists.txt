@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.18...3.31)
 project(${SKBUILD_PROJECT_NAME} LANGUAGES CXX)
 
-find_package(Python 3.11 REQUIRED COMPONENTS Interpreter Development.Module ${SKBUILD_SABI_COMPONENT})
+find_package(Python 3.12 REQUIRED COMPONENTS Interpreter Development.Module ${SKBUILD_SABI_COMPONENT})
 find_package(nanobind CONFIG REQUIRED)
 
 # The binding and meshoptimizer's own sources, the files the encoder and decoder need, in one module.
