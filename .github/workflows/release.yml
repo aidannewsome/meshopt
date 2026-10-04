@@ -1,6 +1,6 @@
 # On a version tag: a wheel for each system, tested where it is built, published to PyPI by trusted publishing, no token
-# stored anywhere, and attached to a GitHub release. One wheel a system
-# serves every Python from 3.12 through the stable ABI; 3.11 and free-threaded 3.14 get their own.
+# stored anywhere, and attached to a GitHub release. One wheel a system serves every Python from 3.12 through the stable
+# ABI; 3.11 and free-threaded 3.14 get their own.
 name: Release
 
 on:
