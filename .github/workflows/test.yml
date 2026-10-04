@@ -1,0 +1,26 @@
+# On every push and pull request: built from source and tested on each system, with the oldest and newest Python and
+# free-threaded Python, which must keep its lock off.
+name: Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, windows-latest]
+        python: ["3.11", "3.14", "3.14t"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - run: uv sync
+      - run: uv run pytest -q
+      - name: Free-threaded Python keeps its lock off
+        if: matrix.python == '3.14t'
+        run: uv run python -c "import sys, meshopt; assert not sys._is_gil_enabled(), 'meshopt turned the lock back on'"
