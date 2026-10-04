@@ -13,6 +13,7 @@ permissions:
 jobs:
   wheels:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, macos-15-intel, windows-latest]
     runs-on: ${{ matrix.os }}
@@ -28,6 +29,7 @@ jobs:
           CIBW_ENABLE: cpython-freethreading
           CIBW_TEST_REQUIRES: pytest
           CIBW_TEST_COMMAND: pytest -q {project}/tests
+          MACOSX_DEPLOYMENT_TARGET: "10.14"  # nanobind's aligned allocation needs 10.14; arm64 builds start at 11 regardless
       - uses: actions/upload-artifact@v4
         with:
           name: wheels-${{ matrix.os }}
