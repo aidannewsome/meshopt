@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, macos-15-intel, windows-latest]
+        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -25,7 +25,7 @@ jobs:
       - uses: pypa/cibuildwheel@v3.2
         env:
           CIBW_BUILD: "cp312-* cp314t-*"
-          CIBW_SKIP: "*-musllinux_* *-win32 *-manylinux_i686"
+          CIBW_SKIP: "*-win32 *-manylinux_i686 *-musllinux_i686"
           CIBW_ENABLE: cpython-freethreading
           CIBW_TEST_REQUIRES: pytest
           CIBW_TEST_COMMAND: pytest -q {project}/tests
